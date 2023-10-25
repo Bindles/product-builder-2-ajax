@@ -1,0 +1,42 @@
+>
+
+
+<!-- app/views/pages/index.html.erb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Index Page</title>
+</head>
+<body>
+    <h1>Pages#index</h1>
+    <p>Find me in app/views/pages/index.html.erb</p>
+  <!-- Add a button that triggers the AJAX request -->
+  <button id="fetchDataButton">Fetch EV Data</button>
+
+  <!-- Container to display the fetched data -->
+  <div id="fetchedData">
+    <!-- Data fetched via AJAX will be displayed here -->
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get the button element
+      var fetchDataButton = document.getElementById('fetchDataButton');
+
+      // Add a click event listener to the button
+      fetchDataButton.addEventListener('click', function() {
+        // Send an AJAX request to the fetchEV action
+        fetch('/fetch_ev')
+          .then(response => response.text())
+          .then(data => {
+            // Update the content of the fetchedData div with the response
+            document.getElementById('fetchedData').innerHTML = data;
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      });
+    });
+  </script>
+</body>
+</html>
